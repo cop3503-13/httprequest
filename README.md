@@ -1,5 +1,5 @@
 # HTTPRequest
-_httprequest class with static methods encapsulating cURL GET_
+_HTTPRequest class with static methods encapsulating cURL GET_
 
 ## Prerequisites
 I have included the curl header files in `include/curl/`, but this still requires cURL, `sudo apt-get install curl`.
