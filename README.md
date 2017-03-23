@@ -25,7 +25,7 @@ std::string output = HTTPRequest::Get(fullUrl);
 ```cpp
 std::string url = "http://www.example.com"
 std::unordered_map<std::string, std::string> parameters = {
-  {"key", "value"},
+  {"name", "chris"},
   {"cool", "yes"}
 };
 
