@@ -1,4 +1,4 @@
-# httprequest
+# HTTPRequest
 _httprequest class with static methods encapsulating cURL GET_
 
 ## Prerequisites
