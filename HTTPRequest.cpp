@@ -1,5 +1,6 @@
 #include "HTTPRequest.h"
 #include "include/curl/curl.h"
+#include "include/rapidjson/document.h"
 #include <iostream>
 
 
@@ -7,14 +8,16 @@
 std::string resp;
 
 /* static */
-size_t HTTPRequest::readJsonResponseCallback(char *buffer, size_t size, size_t nmemb, void *up) {
+size_t HTTPRequest::readJsonResponseCallback(char *buffer, size_t size, size_t nmemb, void *up)
+{
     size_t totalSize = size * nmemb;
     resp.append(buffer, totalSize);
     return totalSize;
 }
 
 /* static */
-std::string HTTPRequest::Get(std::string url) {
+std::string HTTPRequest::Get(std::string url)
+{
     CURL *curl;
     CURLcode res;
     resp = "";
@@ -38,7 +41,8 @@ std::string HTTPRequest::Get(std::string url) {
 }
 
 /* static */
-std::string HTTPRequest::Get(std::string url, std::unordered_map <std::string, std::string> parameters) {
+std::string HTTPRequest::Get(std::string url, std::unordered_map <std::string, std::string> parameters)
+{
     std::string fullUrl = url + "?";
     for (const auto &parameter : parameters)
         fullUrl += parameter.first + "=" + parameter.second + "&";
@@ -46,6 +50,25 @@ std::string HTTPRequest::Get(std::string url, std::unordered_map <std::string, s
     fullUrl.pop_back();
 
     return HTTPRequest::Get(fullUrl);
+}
+
+
+/* static */
+rapidjson::Document HTTPRequest::GetJSON(std::string url, std::unordered_map <std::string, std::string> parameters)
+{
+    std::string responseString = HTTPRequest::Get(url, parameters);
+    rapidjson::Document doc;
+    doc.Parse(responseString.c_str());
+    return doc;
+}
+
+/* static */
+rapidjson::Document HTTPRequest::GetJSON(std::string url)
+{
+    std::string responseString = HTTPRequest::Get(url);
+    rapidjson::Document doc;
+    doc.Parse(responseString.c_str());
+    return doc;
 }
 
 
