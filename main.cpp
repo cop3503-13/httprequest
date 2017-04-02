@@ -41,6 +41,10 @@ int main() {
     doc.Accept(writer);
 
     std::cout << "getJSON with params:" << std::endl << buffer.GetString() << std::endl;
+	
+    //Get only the temperature from the returned json
+	//NOTE: here it is a double so we use .GetDouble() method, for string, use .GetString()
+    std::cout << "Temperature: " << doc["main"]["temp"].GetDouble() << std::endl;
 
     return 0;
 }
